@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kalkulator BMI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator BMI</h1>
+        <label for="weight">Berat (kg):</label>
+        <input type="number" id="weight" min="1" step="any">
+        <label for="height">Tinggi (cm):</label>
+        <input type="number" id="height" min="1" step="any">
+        <button onclick="calculateBMI()">Hitung BMI</button>
+        <div id="result"></div>
+    </div>
+  <script>
+        function calculateBMI() {
+            var weightInput = document.getElementById("weight");
+            var heightInput = document.getElementById("height");
+            var resultDiv = document.getElementById("result");
+
+            var weight = parseFloat(weightInput.value);
+            var height = parseFloat(heightInput.value) / 100; // Konversi tinggi dari cm menjadi meter
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                resultDiv.innerHTML = "Masukkan berat dan tinggi yang valid.";
+                return;
+            }
+
+            var bmi = weight / (height * height);
+            bmi = bmi.toFixed(2); // Memformat hasil BMI menjadi 2 angka di belakang koma
+
+            var category = "";
+            if (bmi < 18.5) {
+                category = "Kurus";
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                category = "Normal";
+            } else if (bmi >= 24.9 && bmi < 29.9) {
+                category = "Gemuk";
+            } else {
+                category = "Obesitas";
+            }
+
+            resultDiv.innerHTML = "BMI Anda: " + bmi + "<br> Kategori: " + category;
+        }
+    </script>
+</body>
+</html>
+
